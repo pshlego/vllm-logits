@@ -324,6 +324,23 @@ class Sampler(nn.Module):
             prompt_logprobs, sample_logprobs = get_logprobs(
                 logprobs, sampling_metadata, maybe_deferred_sample_results)
 
+        # Modified part 2025-06-01 (Return logits with logprobs)
+        if logits is not None:
+            logits_cpu = logits.cpu()
+            logits_cpu_len = len(logits_cpu)
+            single_logprob_len = logits_cpu_len//len(prompt_logprobs)
+            for prompt_id, prompt_logprob in enumerate(prompt_logprobs):
+                if prompt_logprob is not None:
+                    d = prompt_logprob[0]
+                    k = list(d.keys())[0]
+                    logprob = d[k].logprob
+                    sharded_logits_cpu = logits_cpu[prompt_id*single_logprob_len:(prompt_id+1)*single_logprob_len, :]
+                    logprob_column = torch.full((len(sharded_logits_cpu), 1), logprob, dtype=sharded_logits_cpu.dtype, device='cpu')
+                    logits_w_logprob = torch.cat([sharded_logits_cpu, logprob_column], dim=1)
+                    d[k].logprob = logits_w_logprob
+            del logits
+            torch.cuda.empty_cache()
+
         return _build_sampler_output(
             maybe_deferred_sample_results,
             sampling_metadata,
