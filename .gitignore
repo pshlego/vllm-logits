@@ -18,7 +18,6 @@ build/
 cmake-build-*/
 CMakeUserPresets.json
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/

@@ -13,8 +13,9 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "vllm"
-authors = [{name = "vLLM Team"}]
+name = "vllm_logits"
+version = "0.1"
+authors = [{name = "Sungho Park"}]
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 readme = "README.md"
@@ -31,12 +32,10 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Information Analysis",
 ]
 requires-python = ">=3.9,<3.13"
-dynamic = [ "version", "dependencies", "optional-dependencies"]
+dynamic = ["dependencies", "optional-dependencies"]
 
 [project.urls]
-Homepage="https://github.com/vllm-project/vllm"
-Documentation="https://docs.vllm.ai/en/latest/"
-Slack="https://slack.vllm.ai/"
+Homepage="https://github.com/pshlego/vllm"
 
 [project.scripts]
 vllm = "vllm.entrypoints.cli.main:main"
