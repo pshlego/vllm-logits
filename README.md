@@ -57,25 +57,28 @@ This hack appends the full logits (optionally with a reference logprob) to the d
 
 ## 📦 Installation
 
-Clone this modified fork:
+We provide a pre-built `.whl` package for **Linux (x86_64)** and **Python 3.12**.
+
+You can install it directly via `pip`:
 
 ```bash
-git clone https://github.com/hyukkyukang/vllm-logits-output.git
-cd vllm-logits-output
+pip install https://github.com/pshlego/vllm-logits/releases/download/v0.1/vllm_logits-0.1-cp312-cp312-linux_x86_64.whl
 ```
 
-Then install the package via pip:
+✅ This wheel is built for:
+
+- Python version: 3.12
+
+- Platform: linux_x86_64
+
+❗ The .whl file is hosted on GitHub Releases — not via Git LFS — to ensure compatibility with pip install.
+Files stored with Git LFS cannot be installed via pip due to pointer file resolution issues.
+
+If you're using a different Python version (e.g., 3.10, 3.11) or a different OS (e.g., macOS or Windows), you may see the following error:
 
 ```bash
-pip install .
+ERROR: vllm_logits-0.1-...whl is not a supported wheel on this platform.
 ```
-
-You may need to uninstall the original vLLM version first:
-
-```bash
-pip uninstall vllm
-```
-
 ---
 
 ## 🚀 Usage
